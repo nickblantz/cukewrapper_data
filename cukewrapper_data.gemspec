@@ -15,8 +15,9 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new('>= 2.6.0')
   spec.files = [
     'lib/cukewrapper_data.rb',
-    'lib/cukewrapper/cukewrapper_data.rb',
+    'lib/cukewrapper/cukewrapper_data.rb'
   ]
+  spec.add_development_dependency 'rubocop', '~> 1.0'
   spec.add_dependency 'cukewrapper', '~> 0.0'
   spec.add_runtime_dependency 'json', '~> 2.0'
 end

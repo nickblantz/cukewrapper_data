@@ -9,16 +9,14 @@ module Cukewrapper
 
     priority :high
 
-    def initialize(config)
-      super(config)
-    end
-
     def run(context)
       context['data'] = remap(load_data)
     end
 
     def register_hooks
-      Cukewrapper::Hooks.register("#{self.class.name}:after_metatags", :after_metatags) { |_context, metatags| self.handle_metatags(metatags) }
+      Cukewrapper::Hooks.register("#{self.class.name}:after_metatags", :after_metatags) do |_context, metatags|
+        handle_metatags(metatags)
+      end
     end
 
     def handle_metatags(metatags)
@@ -45,5 +43,3 @@ module Cukewrapper
     end
   end
 end
-
-
