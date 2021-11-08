@@ -2,7 +2,7 @@
 
 module Cukewrapper
   # I process data >:^)
-  class DataSourceLoader < Cukewrapper::Remapper
+  class DataSourceLoader < Remapper
     require 'faker'
     require 'json'
     require 'jsonpath'
@@ -14,7 +14,7 @@ module Cukewrapper
     end
 
     def register_hooks
-      Cukewrapper::Hooks.register("#{self.class.name}:after_metatags", :after_metatags) do |_context, metatags|
+      Hooks.register("#{self.class.name}:after_metatags", :after_metatags) do |_context, metatags|
         handle_metatags(metatags)
       end
     end
