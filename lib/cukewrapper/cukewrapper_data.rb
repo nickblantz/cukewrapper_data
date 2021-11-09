@@ -3,9 +3,7 @@
 module Cukewrapper
   # I process data >:^)
   class DataSourceLoader < Remapper
-    require 'faker'
     require 'json'
-    require 'jsonpath'
 
     priority :high
 
@@ -28,7 +26,7 @@ module Cukewrapper
 
     def load_data
       unless @source.nil?
-        Cukewrapper.log.debug("#{self.class.name}\##{__method__}") { "Loading data from #{@source}" }
+        LOGGER.debug("#{self.class.name}\##{__method__}") { "Loading data from #{@source}" }
         return JSON.parse(File.read(@source))
       end
       {}
@@ -37,7 +35,7 @@ module Cukewrapper
     def remap(data)
       return data if @external_remap.nil?
 
-      Cukewrapper.log.debug("#{self.class.name}\##{__method__}") { "Running external remap at #{@external_remap}" }
+      LOGGER.debug("#{self.class.name}\##{__method__}") { "Running external remap at #{@external_remap}" }
       load @external_remap
       data_remap(data)
     end
