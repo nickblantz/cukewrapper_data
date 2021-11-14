@@ -8,28 +8,32 @@ module Cukewrapper
     priority :high
 
     def run(context)
+      return unless @enabled
+
       context['data'] = remap(load_data)
     end
 
     def register_hooks
-      Hooks.register("#{self.class.name}:after_metatags", :after_metatags) do |_context, metatags|
-        handle_metatags(metatags)
-      end
+      Hooks.register("#{self.class.name}:enable", :after_metatags, &enable)
     end
 
-    def handle_metatags(metatags)
-      @source = metatags['data']['source']
-      @external_remap = metatags['data']['remap']
+    def enable
+      lambda do |_context, metatags|
+        @metatags = metatags['data'] || {}
+        @source = @metatags['source']
+        @external_remap = @metatags['remap']
+        @enabled = !@metatags.nil?
+        LOGGER.debug("#{self.class.name}\##{__method__}") { @enabled }
+      end
     end
 
     private
 
     def load_data
-      unless @source.nil?
-        LOGGER.debug("#{self.class.name}\##{__method__}") { "Loading data from #{@source}" }
-        return JSON.parse(File.read(@source))
-      end
-      {}
+      return {} if @source.nil?
+
+      LOGGER.debug("#{self.class.name}\##{__method__}") { "Loading data from #{@source}" }
+      JSON.parse(File.read(@source))
     end
 
     def remap(data)

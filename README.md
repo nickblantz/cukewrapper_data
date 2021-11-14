@@ -21,7 +21,7 @@ end
 
 ```gherkin
 @ten.data.source=./data/example.json @ten.data.remap=./data/example_remap.rb
-Scenario: My Scenario
+Scenario: My scenario
     Given ...
 ```
 
