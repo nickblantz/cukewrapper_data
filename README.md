@@ -20,12 +20,12 @@ end
 `data.source`  and `data.remap` specifies an external ruby file to execute
 
 ```gherkin
-@ten.data.source=./data/example.json @ten.data.remap=./data/example_remap.rb
+@cw.data.source=./data/example.json @cw.data.remap=./data/example_remap.rb
 Scenario: My scenario
     Given ...
 ```
 
-### `@ten.data.source`
+### `@cw.data.source`
 
 Specifies a file to load
 
@@ -35,7 +35,7 @@ Specifies a file to load
 }
 ```
 
-### `@ten.data.remap`
+### `@cw.data.remap`
 
 Specifies an external ruby file to execute
 
